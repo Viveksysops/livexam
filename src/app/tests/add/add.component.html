@@ -1,0 +1,61 @@
+<h2 class='p-3'>
+  Add Test
+  <a [routerLink]="[ '/tests/instruction' ]" class="btn  btn-outline-secondary float-right ml-2">
+    Instruction Manager
+  </a>
+  <a [routerLink]="[ '/tests/default' ]" class="btn  btn-outline-secondary float-right ">
+    Go back
+  </a>
+</h2>
+<hr>
+<form [formGroup]="testForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <div class="input-group">
+        <span class="input-group-text">Test Name</span>
+        <input type="text" class="form-control" formControlName="name" placeholder="Test name">
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <div class="input-group">
+        <label class="input-group-text">Instruction set</label>
+        <select class="form-control" formControlName="instructionId">
+          <option *ngFor="let item of instructions" [ngValue]="item._id">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Test Description</label>
+    <textarea class="form-control" rows="3" formControlName="description"></textarea>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <div class="input-group">
+        <label class="input-group-text">Total marks</label>
+        <input type="text" class="form-control" formControlName="marks" placeholder="Total marks">
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <div class="input-group">
+        <label class="input-group-text">Total questions</label>
+        <input type="text" class="form-control" formControlName="noOfQuestions" placeholder="Total questions">
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <div class="input-group">
+        <label class="input-group-text">Passing marks</label>
+        <input type="text" class="form-control" formControlName="passingScore" placeholder="Passing marks">
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <div class="input-group">
+        <label class="input-group-text">Duration (Mins)</label>
+        <input type="text" class="form-control" formControlName="duration" placeholder="Duration (Mins)">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
+</form>

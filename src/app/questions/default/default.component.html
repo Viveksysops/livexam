@@ -1,0 +1,75 @@
+<main class="container">
+    <h3 class="my-4">Questions
+        <button type="button" class="btn btn-outline-primary float-right" routerLink="/questions/add">Add New</button>
+    </h3>
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="card-header">
+                    Search Questions
+                </h5>
+                <div class="card-body">
+                    <div class="row d-flex">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Select Question Type*</label>
+                                <span class="form-group">
+                                    <select class="form-control" id="question_type" [(ngModel)]="type" (change)="typeChanged()">
+                                        <option value="SINGLE_CHOICE">Single Choice</option>
+                                        <option value="MULTIPLE_CHOICE" selected>Multiple Choice</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Select Subject*</label>
+                                <span class="form-group">
+                                    <select class="form-control" id="question_type" [(ngModel)]="subject" (change)="setSubject()">
+                                        <option *ngFor="let subject of subjectArray" [ngValue]="subject.name">{{subject.name}}</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Select Topic*</label>
+                                <span class="form-group">
+                                    <select class="form-control" [(ngModel)]="topic" (change)="setTopic()">
+                                        <option *ngFor="let topic of topicArray" [ngValue]="topic.name">{{topic.name}}</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" class="search btn btn-primary" routerLink="/questions/default" (click)="searchForQuestion()" [disabled]="search">Search questions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped" *ngIf="!addQuestion">
+        <thead>
+            <tr>
+                <th scope="col">Q.No.</th>
+                <th scope="col">Qustion</th>
+                <th scope="col">Type</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questionArray;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td [innerHtml]=question.question.questionText>{{question.question.questionText}}</td>
+                <td>{{question.question.type}}</td>
+                <td class="d-flex p-2 bd-highlight">
+                    <button class="btn btn-outline-primary" [routerLink]="['/questions/edit',question._id]">Edit</button>&nbsp;
+                    <button class="btn btn-outline-danger" (click)="delete(question._id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>

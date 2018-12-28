@@ -1,0 +1,23 @@
+<div class="login-container">
+  <div class="center-box">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <h2 class="text-center">Admin Login</h2>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password">
+          </div>
+          <button type="button" [routerLink]="[ '/dashboard']" class="btn btn-primary">Submit</button>
+        </form>
+        <a [routerLink]="[ '/auth/forgot-password']">Forgot password</a>
+        <p> Not registered yet? <a [routerLink]="[ '/auth/signup']">Sign up</a></p>
+
+      </div>
+    </div>
+  </div>
+</div>

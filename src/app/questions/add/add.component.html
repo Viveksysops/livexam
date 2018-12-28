@@ -1,0 +1,109 @@
+<main class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <h5 class="card-header">
+          Add Question
+          <button type="button" class="btn btn-default float-right" routerLink="/questions/default">Back</button>
+        </h5>
+        <div class="card-body">
+          <form [formGroup]="questionData" (ngSubmit)="onSubmit(questionData)">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Select Question Type*</label>
+                  <span class="form-group">
+                    <select class="form-control" id="question_type" formControlName="type">
+                      <option value="SINGLE_CHOICE">Single Choice</option>
+                      <option value="MULTIPLE_CHOICE" selected>Multiple Choice</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="form-group col-md-12" style="padding:0px;padding-right:10px;">
+                  <div class="input-group">
+                    <span class="input-group-text">Level*</span>
+                    <select class="form-control" name="difficulty_level" formControlName="diffLevel" id="difficulty_level">
+                      <option value=""></option>
+                      <option value="Easy">Easy</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Hard">Hard</option>
+                      <option value="Harder">Harder</option>
+                      <option value="Hardest">Hardest</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Select Subject*</label>
+                  <input class="form-control" (input)="subjectFieldChange($event.target.value)" [(ngModel)]="subjectName" formControlName="subject">
+                  <div class="card" style="z-index: 100;">
+                    <div *ngFor="let subject of subjectArray">
+                      <span (click)="setSubject(subject)">{{subject.name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-12" style="padding:0px;padding-right:10px;">
+                  <div class="input-group">
+                    <span class="input-group-text">Right Marks*</span>
+                    <input class="form-control" type="text" name="right_marks" formControlName="rightMarks" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Select Topic*</label>
+                  <input class="form-control" (input)="topicFeildChange($event.target.value)" [(ngModel)]="topicName" formControlName="topic">
+                  <div class="card" style="z-index: 100;">
+                    <div *ngFor="let topic of topicsArray">
+                      <span (click)="setTopic(topic)">{{topic.name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <div class="input-group">
+                    <span class="input-group-text">wrongMarks*</span>
+                    <input class="form-control" type="text" formControlName="wrongMarks" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!richTextEditor" class="col-md-12">
+              <div class="form-group clearfix">
+                <label>Question* </label>
+                <textarea class="form-control " rows="5" id="question" formControlName="questionText"></textarea>
+                <span (click)="toggleRichTextEditor()" class="btn badge badge-primary float-right">Enable Rich text editor</span>
+              </div>
+            </div>
+            <div *ngIf="richTextEditor" class="col-md-12">
+              <div class="form-group clearfix">
+                <label>Question* </label>
+                <quill-editor rows="7" id="question" formControlName="questionText"></quill-editor>
+                <span (click)="toggleRichTextEditor()" class="btn  badge badge-secondary float-right">Disable rich text editor</span>
+              </div>
+            </div>
+            <div class="form-group clearfix">
+              <div formArrayName="options" *ngFor="let item of questionData.get('options')['controls']; let i = index;">
+                <div [formGroupName]="i">
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <label>
+                        <input type="radio" [value]="true" [checked]="item.value.isCorrect"  formControlName="isCorrect" (change)="valueChanged(item.value)"> Option
+                        <span>{{i+1}}</span>
+                      </label>
+                    </div>
+                    <textarea id="option1" class="form-control" formControlName="option" rows="4"></textarea>
+                  </div>
+                </div>
+                <span class="float-right btn badge badge-secondary" (click)="removeOption(i)">Remove option</span>
+              </div>
+            </div>
+            <p><a class="btn txt-primary" (click)="addOption()">Add option</a></p>
+            <button type="submit" class="btn btn-primary" [disabled]="!questionData.valid">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

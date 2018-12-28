@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="nav nav-tabs collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item" >
+          <a [routerLink]="[ '/tests/default' ]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  class="nav-link">
+            Test manager
+          </a>
+        </li>
+        <li class="nav-item" >
+          <a [routerLink]="[ '/tests/instruction' ]" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  class="nav-link">
+            Instruction Manager
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="[ '/tests/invites' ]"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" href="#">
+            Invitation Manager
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+  

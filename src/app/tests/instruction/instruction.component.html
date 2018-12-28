@@ -1,0 +1,52 @@
+<h2 class='p-3'>
+  Test Instructions
+</h2>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Add instruction set:
+      </div>
+      <div class="card-body">
+        <form [formGroup]="instructionForm">
+          <div class="form-group">
+            <label>Instruction Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Test name">
+          </div>
+
+          <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" rows="3" formControlName="content"></textarea>
+          </div>
+        </form>
+        <button *ngIf="!editId" type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
+        <button *ngIf="editId" type="submit" class="btn btn-primary mr-1" (click)='update()'>Update</button>
+        <button *ngIf="editId" type="submit" class="btn btn-primary" (click)='cancel()'>Cancel</button>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-md-6">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Sr. No.</th>
+          <th scope="col">Instruction Name</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list; let i=index " [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.name}}</td>
+          <td class="p-1">
+            <button class="btn btn-outline-warning" (click)='edit(item._id)'>Edit</button>
+            <button class="btn btn-outline-danger ml-1" (click)="delete(item._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

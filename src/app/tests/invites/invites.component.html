@@ -1,0 +1,65 @@
+<h2 class='p-3'>
+  Invites
+</h2>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Send Invites :
+      </div>
+      <div class="card-body">
+        <form [formGroup]="invitesForm">
+          <div class="form-group">
+            <label>Test: </label>
+            <select class="form-control" formControlName="testLibraryId">
+              <option *ngFor="let item of testList" [ngValue]="item._id">{{item.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Email ids (separeted by ','): </label>
+            <textarea class="form-control" rows="3" formControlName="email"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <label class="input-group-text">Expiry Date</label>
+              <input class="form-control" formControlName="expiry" type="date"  min={{today}}>
+            </div>
+          </div>
+
+        </form>
+        <button type="submit" class="btn btn-primary" (click)='submit()'>Submit</button>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-md-6">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Sr. No.</th>
+          <th scope="col">Test</th>
+          <th scope="col">Email id</th>
+          <th scope="col">Expiry date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list; let i=index " [attr.data-index]="i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.testLibraryId.name}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.expiry.getDate()+'/'+item.expiry.getMonth()+'/'+item.expiry.getFullYear()}}</td>
+          <td class="span  p-1">
+            <p>
+              <button class="btn btn-sm btn-outline-danger btn-block" (click)="delete(item._id, i)">Delete</button>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

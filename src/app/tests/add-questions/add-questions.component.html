@@ -1,0 +1,98 @@
+<h2 class='p-3'>
+  Add Questions
+  <a [routerLink]="[ '/tests/default' ]" class="btn  btn-outline-secondary float-right ">
+    Go back
+  </a>
+</h2>
+<div class="col-md-4" *ngIf="test"><span style="font-size:20px">Test Name: </span>{{test.name}}</div>
+<hr>
+<div class="row p-2" *ngIf="test">
+  <div class="col-md-12 d-flex">
+    <div class="col-md-4"> <span style="font-size:20px">Total Questions: </span>{{test.noOfQuestions}}</div>
+    <div class="col-md-4"> <span style="font-size:20px">Remaining Questions: </span>{{questionsRemaning}}</div>
+    <div class="col-md-4">
+      <button [disabled]='questionsAdded.length == 0' class="btn btn-primary" (click)=addSelectedQuestions()>Add
+        questions</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    Filters
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <label class="input-group-text">Subject</label>
+          <select class="form-control" [(ngModel)]="selectedSubject" (change)=subjectChanged()>
+            <option *ngFor="let item of subjects" [value]="item._id">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <label class="input-group-text">Topic</label>
+          <select class="form-control" [(ngModel)]="selectedTopic">
+            <option *ngFor="let item of topics" [value]="item._id">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-primary" [disabled]='!(selectedSubject && selectedTopic)' (click)=loadQuestion()>
+          Load Questions
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Sr. No.</th>
+      <th scope="col">Question</th>
+      <th scope="col">Right Marks</th>
+      <th scope="col">Wrong Marks</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of questions; let i=index " [attr.data-index]="i">
+      <td scope="row">{{i+1}}</td>
+      <td class="question-text" [innerHTML]=item.question.question.questionText></td>
+      <td><input type="text" [(ngModel)]="item.rightMarks"></td>
+      <td><input type="text" [(ngModel)]="item.wrongMarks"></td>
+      <td class="p-1">
+        <button *ngIf="questionsAdded.indexOf(item)==-1" class="mr-1 btn btn-success" (click)="addQuestion(item)">Add</button>
+        <button *ngIf="questionsAdded.indexOf(item)!=-1" class="mr-1 btn btn-danger" (click)="removeQuestion(item)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf='questionsAdded.length!=0'>
+  <h4>Questions Added in test</h4>
+  <table class="table table-striped questions-table">
+    <thead>
+      <tr>
+        <th scope="col">Sr. No.</th>
+        <th scope="col">Question</th>
+        <th scope="col">Right Marks</th>
+        <th scope="col">Wrong Marks</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of questionsAdded; let i=index " [attr.data-index]="i">
+        <td scope="row">{{i+1}}</td>
+        <td [innerHTML]="item.question.question.questionText"></td>
+        <td><input type="text" [(ngModel)]="item.rightMarks"></td>
+        <td><input type="text" [(ngModel)]="item.wrongMarks"></td>
+        <td class="p-1">
+          <button *ngIf="questionsAdded.indexOf(item)==-1" class="mr-1 btn btn-success" (click)="addQuestion(item)">Add</button>
+          <button *ngIf="questionsAdded.indexOf(item)!=-1" class="mr-1 btn btn-danger" (click)="removeQuestion(item)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
